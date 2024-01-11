@@ -49,10 +49,7 @@ export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
 
 export const formatPrice = (price: string) => {
   const amount = parseFloat(price)
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount)
+  const formattedPrice = new Intl.NumberFormat('ko-KR').format(amount)
 
   return formattedPrice
 }

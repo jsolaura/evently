@@ -52,10 +52,10 @@ const Checkout = ({ event, userId }: { event: IEvent, userId: string }) => {
                     console.log(error?.message);
                     break
                 case 'error':
-                    if (error.error_code === "RC_PRICE_LEAST_LT") {
+                    if (error?.error_code === "RC_PRICE_LEAST_LT") {
                         console.log('최소금액 100원 이상 결제를 요청해주세요.');
                     }
-                    if (error.payload.ResultCode === 'EP07') {
+                    if (error?.payload.ResultCode === 'EP07') {
                         console.log('카드 인증정보 조회를 실패하였습니다.');
                     } else {
                         console.log(error?.message);

@@ -29,7 +29,7 @@ const OrderSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    stripeId: {
+    bootpayId: {
         type: String,
         required: true,
         unique: true,

@@ -275,12 +275,13 @@ body {
   background-color: #624cf5 !important;
 }
 
+/* ========================================== LOADING STYLES */
 .loader {
   width: 48px;
   height: 48px;
   border-radius: 50%;
   position: relative;
-  animation: rotate .4s linear infinite
+  animation: rotate 1s linear infinite
 }
 .loader::before , .loader::after {
   content: "";
@@ -289,11 +290,11 @@ body {
   inset: 0px;
   border-radius: 50%;
   border: 5px solid #FA766B;
-  animation: prixClipFix .8s linear infinite ;
+  animation: prixClipFix 2s linear infinite ;
 }
 .loader::after{
   border-color: #624cf5;
-  animation: prixClipFix .8s linear infinite , rotate 0.4s linear infinite reverse;
+  animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
   inset: 6px;
 }
 

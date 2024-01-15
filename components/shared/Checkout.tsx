@@ -39,7 +39,6 @@ const Checkout = ({ event, userId }: { event: IEvent, userId: string }) => {
         }
         try {
             const response = await Bootpay.requestPayment(bootpayObj);
-            console.log(response);
             switch(response.event) {
                 case 'done':
                     console.log('Order placed! You will receive an email confirmation.');

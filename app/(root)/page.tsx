@@ -18,12 +18,11 @@ export default async function Home({ searchParams }: SearchParamProps) {
         page,
         limit: 6,
     });
-
     return (
         <>
-        <section className='bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10'>
+        <section className='bg-gray-950 bg-dotted-pattern bg-contain py-5 md:py-10'>
             <div className='wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0'>
-                <div className='flex flex-col justify-center gap-8'>
+                <div className='flex flex-col justify-center gap-8 text-white'>
                     <h1 className="h1-bold">Host, Connect, Celebrate: Your Events, Our Platform!</h1>
                     <p className="p-regular-20 md:p-regular-24">Book and learn helpful tips from 3,168+ mentors in world-class companies with our global community.</p>
                     <Button size='lg' asChild className='button w-full sm:w-fit'>
@@ -31,7 +30,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
                     </Button>
                 </div>
                 <Image
-                    src='/assets/images/hero.png'
+                    src='/assets/images/main.gif'
                     alt='hero'
                     width={1000}
                     height={1000}
@@ -39,10 +38,12 @@ export default async function Home({ searchParams }: SearchParamProps) {
                 />
             </div>
         </section>
-        <section id='events' className='wrapper my-8 flex flex-col gap-8 md:gap-12'>
-            <h2 className='h2-bold'>
+        <article className='w-full py-8 bg-primary-50 bg-dotted-pattern'>
+            <h2 className='wrapper h2-bold'>
                 Trust by <br /> Thousands of Events
             </h2>
+        </article>
+        <section id='events' className='wrapper mb-8 flex flex-col gap-8 md:gap-12'>
             <div className='flex w-full flex-col gap-5 md:flex-row'>
                 <Search />
                 <CategoryFilter />
@@ -53,7 +54,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
                 emptyStateSubtext="Come back later"
                 collectionType="All_Events"
                 limit={6}
-                page={searchParams.page as string}
+                page={page}
                 totalPages={events?.totalPages}
             />
         </section>   

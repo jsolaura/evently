@@ -6,7 +6,6 @@ import { SignedIn, SignedOut, useUser } from '@clerk/nextjs'
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 
 const Checkout = dynamic(() => import('./Checkout'), {
     ssr: false,
@@ -20,8 +19,8 @@ const CheckoutButton = ({ event, hasOrderedEvent }: { event: IEvent, hasOrderedE
     return (  
         <div className='flex items-center gap-3'>
             {/* can't buy past event */}
-            {hasEventFinished ? (
-                <p className='p-2 text-red-400'>Sorry, Tickets are no longer available.</p>
+            {hasEventFinished || event?.isFree ? (
+                <p className='p-2 text-red-400'>{event?.isFree ? 'This is Free admission.' : hasEventFinished && 'Sorry, Tickets are no longer available.'}</p>
             ) : (
                 <>
                 <SignedOut>

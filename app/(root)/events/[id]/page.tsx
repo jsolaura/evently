@@ -7,6 +7,7 @@ import { formatDateTime, formatPrice } from '@/lib/utils';
 import { SearchParamProps } from '@/types'
 import { auth } from '@clerk/nextjs';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 
 const EventDetail = async ({ params: { id }, searchParams }: SearchParamProps) => {
@@ -16,21 +17,21 @@ const EventDetail = async ({ params: { id }, searchParams }: SearchParamProps) =
     const relatedEvents = await getRelatedEventsByCategory({
         categoryId: event.category._id,
         eventId: event._id,
-        page: searchParams.page as string,
+        page: searchParams.page as string || 1,
     })
-    const orders = await getOrdersByUser({ userId, page: 1 });
+    const orders = await getOrdersByUser({ userId, page: searchParams.page as string || 1 });
     const hasOrderedEvent = orders?.data.some((order: IOrder) => order.event._id === event._id) || false;
     
     return (
         <>
         <section className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
-            <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7'>
+            <div className='grid grid-cols-1 md:grid-cols-2'>
                 <Image
                     src={event.imageUrl}
                     alt='hero image'
                     width={1000}
                     height={1000}
-                    className='h-full min-h-[300px] object-cover object-center'
+                    className='h-full min-h-[300px] object-contain object-center xl:p-10'
                 />
                 <div className='flex w-full flex-col gap-8 p-5 md:p-10'>
                     <div className='flex flex-col gap-6'>
@@ -83,7 +84,7 @@ const EventDetail = async ({ params: { id }, searchParams }: SearchParamProps) =
                     <div className='flex flex-col gap-2'>
                         <p className='p-bold-20 text-grey-600'>What You'll Learn:</p>
                         <p className='p-medium-16 lg:p-regular-18 whitespace-pre-wrap'>{event.description}</p>
-                        <p className='p-medium-16 lg:p-regular-18 truncate text-primary-500 underline'>{event.url}</p>
+                        <a href={event.url} target='_blank' className='p-medium-16 lg:p-regular-18 truncate text-primary-500 underline'>{event.url}</a>
                     </div>
                 </div>
             </div>

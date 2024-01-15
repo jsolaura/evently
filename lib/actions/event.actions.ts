@@ -44,7 +44,7 @@ export const getAllEvents = async ({ query, limit = 6, page, category }: GetAllE
 
         const skipAmount = (Number(page) - 1) * limit
         const eventsQuery = Event.find(conditions)
-            .sort({ createdAt: 'desc' })
+            .sort({ startDateTime: 'desc' })
             .skip(skipAmount)
             .limit(limit)
 
@@ -116,7 +116,7 @@ export const getRelatedEventsByCategory = async ({ categoryId, eventId, limit = 
         const conditions = { $and: [{ category: categoryId }, { _id: { $ne: eventId } }] };
         
         const eventsQuery = Event.find(conditions)
-            .sort({ createAt: 'desc' })
+            .sort({ startDateTime: 'desc' })
             .skip(skipAmount)
             .limit(limit);
         
@@ -137,7 +137,7 @@ export const getEventsByUser = async ({ userId, limit = 6, page }: GetEventsByUs
         const conditions = { organizer: userId };
         
         const eventsQuery = Event.find(conditions)
-            .sort({ createAt: 'desc' })
+            .sort({ startDateTime: 'desc' })
             .skip(skipAmount)
             .limit(limit);
         

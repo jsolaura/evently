@@ -7,36 +7,35 @@ import { redirect } from 'next/navigation';
 
 
 const Checkout = ({ event, userId }: { event: IEvent, userId: string }) => {
-    console.log(process.env.NEXT_PUBLIC_BOOTPAY_APPLICATION_ID)
     const connectToBootpay = async () => {
         const price = event.isFree ? 0 : Number(event.price);
         const bootpayObj = {
-                "application_id": process.env.NEXT_PUBLIC_BOOTPAY_APPLICATION_ID,
+            "application_id": process.env.NEXT_PUBLIC_BOOTPAY_APPLICATION_ID,
+            "price": price,
+            "order_name": event.title,
+            "order_id": "TEST_ORDER_ID",
+            "pg": "카카오페이",
+            "method": "간편",
+            "tax_free": 0,
+            "user": {
+                "id": userId,
+                "username": "",
+                "phone": "",
+                "email": ""
+            },
+            "items": [
+                {
+                "id": event._id,
+                "name": event.title,
+                "qty": 1,
                 "price": price,
-                "order_name": event.title,
-                "order_id": "TEST_ORDER_ID",
-                "pg": "카카오페이",
-                "method": "간편",
-                "tax_free": 0,
-                "user": {
-                    "id": userId,
-                    "username": "",
-                    "phone": "",
-                    "email": ""
-                },
-                "items": [
-                    {
-                    "id": event._id,
-                    "name": event.title,
-                    "qty": 1,
-                    "price": price,
-                    }
-                ],
-                "extra": {
-                    "open_type": "iframe",
-                    "card_quota": "0,2,3",
-                    "escrow": false
                 }
+            ],
+            "extra": {
+                "open_type": "iframe",
+                "card_quota": "0,2,3",
+                "escrow": false
+            }
         }
         try {
             const response = await Bootpay.requestPayment(bootpayObj);
